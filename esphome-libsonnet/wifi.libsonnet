@@ -5,7 +5,7 @@
     config,
   ):: {
     domain: '.' + (config + config.networks[0]).domain,
-    fast_connect: true,
+    fast_connect: if std.objectHas((config + config.networks[0]), 'fast_connect') then config.fast_connect else 'true',
     [if std.objectHas((config + config.networks[0]), 'address') then 'manual_ip']: {
       static_ip: (config + config.networks[0]).address,
       gateway: (config + config.networks[0]).gateway,
